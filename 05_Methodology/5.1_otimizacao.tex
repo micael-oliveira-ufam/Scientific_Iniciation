@@ -1,0 +1,16 @@
+\chapter{Metodologias}
+
+Neste capítulo serão apresentados os conceitos para compreensão das ferramentas computacionais. Será feito um estudo dos métodos e teorias já estabelecidos na literatura para os cálculos de estrutura eletrônica e docking molecular juntamente com seus parâmetros técnicos. Todavia, uma descrição com maior rigor matemático e detalhamento pode ser encontrado nas seguintes leituras adicionais. 
+
+\section{Otimização estrutural e análise conformacional}
+
+Conforme a geometria ao qual o candidato à fármaco inibidor interage com a proteína receptora, pode-se, haver ou não, bioatividade. Desta forma, uma análise conformacional mostra a estereoquímica das diferentes orientações espaciais de um futuro medicamento. Sendo assim, será rotacionado os ângulos diedrais das ligações químicas, possibilitando a visualização das orientações mais energeticamente favoráveis ao fármaco, denominados de confôrmeros. \cite{Kiametis2012}
+
+Contudo, durante a geração dos confôrmeros podem haver distorções nos comprimentos das ligações, como também, variações nos ângulos de torção. Sendo assim, as conformações mais estáveis são obtidas por otimização de geometria mediante cálculos de mecânica molecular ou mecânica quântica. \cite{Silva2017}
+
+A pré-otimização dos ligantes será efetuada por métodos mecânico-quânticos, de natureza semi-empírica mediante o software open-source: \textit{GAMESS(US) na versão Junho 2019 R1 em arquitetura Linux x64 bits}. Optou-se pelo halmitoniano não relativístico Parametric Method Number 6(PM6). Devido aos limites computacionais, escolheu-se inicialmente um método semi-empírico por apresentar menor tempo de processamento comparado a métodos \textit{ab initio}. Todavia, os resultados obtidos de forma semi-empírica possuem menor exatidão com a realidade.
+
+Os valores de energia são obtidos a partir de uma versão modificada da equação de $Schr\"{o}dinger$ para fenômenos de muitos corpos. A partir da análise conformacional será construído um gráfico para a superfície de energia potencial(PES), crucial na determinação da conformação de maior estabilidade em cada par de ângulos diedrais. 
+
+Ainda será preciso uma reotimização dos ligantes, com o intuito de aumentar a precisão dos mínimos de energia. A reotimização será mediante cálculos \textit{ab initio} por meio do pacote computacional: \textit{GAMESS(US)}. A pré-otimização contribui na redução do tempo de processamento durante os cálculos \textit{ab-initio}. Em relação aos parâmetros, escolheu-se o modelo Restricted Hartre-Fock(RHF) com funções de base gaussianas do tipo $6-311G** +(2d,p)$. O motivo das especificações teóricas serão descritas detalhadamente ao longo deste capítulo.
+

@@ -1,0 +1,220 @@
+% Modelo de Dissertação em Latex para o PPG em Engenharia Mecânica da UERJ
+% Este modelo foi adaptado da versão disponibilizada no site da Engenharia Elétrica da UERJ
+% http://www.pel.uerj.br/publico/Modelo_LaTeX_Dissertacao_UERJ.rar
+% http://www.pel.uerj.br/defesas/
+%
+% Utilizei o WinEdt 6.0 com Miktex 2.9
+%
+% Para gerar o PDF usei a opção PDFTeXfy com o documento [masterthesis.tex] aberto e em foco.
+%
+% Não consegui usar as figuras em EPS como o modelo original. Usei PNG e JPG sem problemas.
+%
+% Felipe M. - 20/06/2012
+%
+
+% Modificações e adaptações ao modelo da UFPE feitas por João Cordeiro.
+% Versão original disponibilizada como template do latex.
+% Este modelo foi criado para servir de exemplo de formato, não devendo seu código ser
+% utilizado como referência de formatação.
+% PLAIN: O código é uma adaptação de uma adaptação. Funciona, mas está cheio de gambiarras.
+%
+% João Cordeiro - 05/03/2019
+%
+
+\documentclass[a4paper,12pt,oneside,openany,table,xcdraw]{uerj}
+
+\usepackage[portuguese]{babel}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{cite}
+\usepackage{epsf,epsfig,psfig}
+\usepackage{pagina}
+\usepackage{indentfirst}
+\usepackage{theorem}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{boxedminipage}
+\usepackage{float}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{todonotes}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{blindtext}
+ \usepackage{siunitx}
+
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{relsize}
+
+\usepackage{charter}
+\usepackage{environ}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix}
+
+\usepackage{filecontents}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\tcbuselibrary{skins}
+
+\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+
+\tcbset{tab1/.style={enhanced, fonttitle=\bfseries,fontupper=\scriptsize,
+colback=SpringGreen!05!white,colframe=LimeGreen!15!black,colbacktitle=YellowGreen!15!white,
+coltitle=black,center title}}
+
+\usepackage{graphicx}
+
+% Comando para remover o rodapé(footer)
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% your header and footer code
+\fancyfoot[C]{}
+
+% Bilibotecas para referências 
+\usepackage{cite}
+\usepackage[super]{natbib}
+
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage{listings}
+
+% Comandos importantes para tornar section/subsection em negrito %
+\usepackage{titlesec}
+\titleformat{\section}    
+       {\renewcommand\rmdefault{lmr}\fontsize{12}{17}\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}    
+       {\renewcommand\rmdefault{lmr}\fontsize{12}{17}\bfseries\itshape}{\thesubsection}{1em}{}
+
+%\usepackage[Bjornstrup]{fncychap}
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\titlespacing*{\chapter}{0pt}{-25pt}{30pt}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\newtheorem{deff}{Definição}[section]
+\numberwithin{equation}{chapter}
+
+\theoremstyle{plain}
+
+\newcommand*{\captionsource}[3]{%
+    \caption{\label{#1}#2.}
+    \vspace{-0.3cm}
+    \caption*{Fonte: #3.}
+}
+
+\fancypagestyle{references}{%
+  \lhead{Referências}
+  \chead{}
+  \rhead{}
+  \rhead{\thepage}
+}
+
+
+\fancypagestyle{timeline}{%
+  \lhead{Cronograma}
+  \chead{}
+  \rhead{}
+  \rhead{\thepage}
+}
+
+\renewcommand\rmdefault{lmr}
+
+\begin{document}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    linktoc=all
+}
+% Infos do projeto
+%
+
+\pagestyle{empty}
+
+\newcommand{\thedepartment}{Instituto de Ciências Exatas}
+\newcommand{\thecourse}{Departamento de Física}
+\newcommand{\thetype}{Relatório de Iniciação Científica}
+\newcommand{\thestudent}{Micael Davi Lima de Oliveira}
+\newcommand{\theadvisor}{Prof. Dr. Kelson Mota Teixeira de Oliveira}
+\newcommand{\thecity}{Manaus}
+
+% \thispagestyle{empty}\listoftodos\pagebreak
+\thispagestyle{empty}\input{./01_Pre_textuais/Capa}
+\pagebreak\thispagestyle{empty}\input{./01_Pre_textuais/FolhaDeRosto}
+
+\pagebreak\thispagestyle{empty}\input{./01_Pre_textuais/dedicatoria}
+\pagebreak\thispagestyle{empty}\input{./01_Pre_textuais/Agradecimento}
+\pagebreak\thispagestyle{empty}\input{./01_Pre_textuais/Resumo}
+\pagebreak\thispagestyle{empty}\input{./01_Pre_textuais/Abstract}
+
+\pagebreak
+
+\def\listtablename{Lista de Figuras}\listoffigures
+\def\listtablename{Lista de Tabelas}\listoftables
+\input{./01_Pre_textuais/abreviaturas}
+
+\clearpage
+\pagestyle{empty}
+\def\contentsname{Sumário}\tableofcontents
+
+\fancypagestyle{plain}{
+\lhead{\nouppercase{\rightmark} \nouppercase{\leftmark}}
+  \chead{}
+  \rhead{}
+  \rhead{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  
+ \renewcommand{\sectionmark}[1]{{}}
+ 
+  %\renewcommand{\sectionmark}[1]{\markright{\thechapter }}
+}
+
+\pagestyle{plain}
+
+\pagebreak\input{./02_Introduction/1.1_depression}
+\input{./02_Introduction/1.2_historia}
+\input{./02_Introduction/1.3_tratamento}
+\input{./02_Introduction/1.4_estresse}
+
+\pagebreak\input{./03_Objectives/3.1_objectives}
+
+\input{./04_Review/4.1_revisao}
+
+\pagebreak\input{./05_Methodology/5.1_otimizacao}
+
+\pagebreak\input{./06_Perspectives/6.1_results}
+
+%\bibliographystyle{unsrt}
+%\input{./References/referencias}
+
+\clearpage
+\pagestyle{references}
+\label{References}
+\renewcommand{\bibname}{Referências}
+\addcontentsline{toc}{chapter}{\normalsize\textbf{REFERÊNCIAS}}
+\bibliographystyle{acm}
+\bibliography{research} 
+
+\clearpage
+\pagestyle{timeline}
+\pagebreak\input{./07_Timeline/timeline}
+\addcontentsline{toc}{chapter}{\normalsize\textbf{CRONOGRAMA}}
+
+%\printindex    %Removi o índice remissivo para a versão oficial do trabalho.
+
+\end{document}

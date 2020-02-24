@@ -1,0 +1,102 @@
+
+% code by Andrew:
+% http://tex.stackexchange.com/a/28452/13304
+\makeatletter
+\let\matamp=&
+\catcode`\&=13
+\makeatletter
+\def&{\iftikz@is@matrix
+  \pgfmatrixnextcell
+  \else
+  \matamp
+  \fi}
+\makeatother
+
+\newcounter{lines}
+\def\endlr{\stepcounter{lines}\\}
+
+\newcounter{vtml}
+\setcounter{vtml}{0}
+
+\newif\ifvtimelinetitle
+\newif\ifvtimebottomline
+\tikzset{description/.style={
+  column 2/.append style={#1}
+ },
+ timeline color/.store in=\vtmlcolor,
+ timeline color=red!80!black,
+ timeline color st/.style={fill=\vtmlcolor,draw=\vtmlcolor},
+ use timeline header/.is if=vtimelinetitle,
+ use timeline header=false,
+ add bottom line/.is if=vtimebottomline,
+ add bottom line=false,
+ timeline title/.store in=\vtimelinetitle,
+ timeline title={},
+ line offset/.store in=\lineoffset,
+ line offset=6pt,
+}
+
+\NewEnviron{vtimeline}[1][]{%
+\setcounter{lines}{1}%
+\stepcounter{vtml}%
+\begin{tikzpicture}[column 1/.style={anchor=east},
+ column 2/.style={anchor=west},
+ text depth=0pt,text height=1ex,
+ row sep=1ex,
+ column sep=1em,
+ #1
+]
+\matrix(vtimeline\thevtml)[matrix of nodes]{\BODY};
+\pgfmathtruncatemacro\endmtx{\thelines-1}
+\path[timeline color st] 
+($(vtimeline\thevtml-1-1.north east)!0.5!(vtimeline\thevtml-1-2.north west)$)--
+($(vtimeline\thevtml-\endmtx-1.south east)!0.5!(vtimeline\thevtml-\endmtx-2.south west)$);
+\foreach \x in {1,...,\endmtx}{
+ \node[circle,timeline color st, inner sep=0.15pt, draw=white, thick] 
+ (vtimeline\thevtml-c-\x) at 
+ ($(vtimeline\thevtml-\x-1.east)!0.5!(vtimeline\thevtml-\x-2.west)$){};
+ \draw[timeline color st](vtimeline\thevtml-c-\x.west)--++(-3pt,0);
+ }
+ \ifvtimelinetitle%
+  \draw[timeline color st]([yshift=\lineoffset]vtimeline\thevtml.north west)--
+  ([yshift=\lineoffset]vtimeline\thevtml.north east);
+  \node[anchor=west,yshift=16pt,font=\large]
+   at (vtimeline\thevtml-1-1.north west) 
+   {\textsc{Timeline \thevtml}: \textit{\vtimelinetitle}};
+ \else%
+  \relax%
+ \fi%
+ \ifvtimebottomline%
+   \draw[timeline color st]([yshift=-\lineoffset]vtimeline\thevtml.south west)--
+  ([yshift=-\lineoffset]vtimeline\thevtml.south east);
+ \else%
+   \relax%
+ \fi%
+\end{tikzpicture}
+}
+
+\footnotesize
+\justify
+\begin{vtimeline}[description={text width=8.4cm},
+ row sep=16ex, 
+ timeline color=cyan!80!blue,
+ timeline title={Cronograma proposto ao andamento da pesquisa.}]
+
+
+ 
+\textcolor{blue!30!green!75}{Agosto(2020)} $\rightarrow$ \textcolor{gray}{Julho(2021)} & Levantamento bibliográfico sobre as hipóteses centrais do Transtorno Depressivo. Avanços na literatura entre as ferramentas de otimização, triagem virtual, ADME e docking molecular.  \endlr
+
+\textcolor{gray}{Agosto(2020)} $\rightarrow$ \textcolor{gray}{Setembro(2020)}   & Triagem virtual baseada na similaridade espacial com os inibidores consolidados de \textit{IL-6R}. Seleções dos inibidores que obedecem à Regra de Lipinski. Otimização e estudo dos descritores moleculares. \endlr
+
+\textcolor{gray}{Outubro(2020)} $\rightarrow$ \textcolor{gray}{Janeiro(2020)}  & Preparação do receptor \textit{IL-6R} mediante protonação por adição de Hidrogênio e cargas parciais. Estudos de docking do tipo semirrígido-flexível nos softwares AutoDock Vina e GOLD.\endlr
+
+\textcolor{gray}{Fevereiro(2021)} $\rightarrow$ \textcolor{gray}{Abril(2021)}  & Revisão e possíveis correções de todos os cálculos efetuados e análise comparativa com pesquisas já consolidadas na literatura. \endlr
+
+\textcolor{gray}{Maio(2021)} $\rightarrow$ \textcolor{gray}{Junho(2021)} &  Análise das conclusões, estudo dos mecanismos de síntese dos fármacos mais promissores e perspectivas futuras. \endlr
+
+\textcolor{gray}{Junho(2021)} $\rightarrow$ \textcolor{gray}{Julho(2021)} & Predição da probabilidade de interações com outras proteínas no organismo. Considerações éticas sobre o tratamento psicofarmacológico. \endlr
+
+\textcolor{gray}{Julho(2021)} & Elaboração do resumo e relatório final de Iniciação Científica. \textcolor{red!80}{(atividade obrigatória)}  \endlr
+
+\textcolor{gray}{Julho(2021)} & Preparação da apresentação final para o Congresso de Iniciação Científica. \textcolor{red!80}{(atividade obrigatória)} \endlr
+\end{vtimeline}
